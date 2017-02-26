@@ -41,7 +41,7 @@ $oLogHandler->setFormatter($oLogFormatter);
 $oLog->pushHandler($oLogHandler);
 
 $command = sprintf(
-    '%s build',
+    '%s build /etc/satis/satis.json public',
     DIR_BIN . DIRECTORY_SEPARATOR . 'satis'
 );
 

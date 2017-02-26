@@ -1,0 +1,11 @@
+{
+  "name": "Repositories",
+  "homepage": "https://repos.example.com",
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/composer/satis.git"
+    }
+  ],
+  "require-all": true
+}
