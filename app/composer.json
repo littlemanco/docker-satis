@@ -19,7 +19,8 @@
     "source": "https://github.com/littlemanco/docker-satis"
   },
   "require": {
-    "composer/satis": "^1.0@alpha"
+    "composer/satis": "^1.0@alpha",
+    "monolog/monolog": "^1.22"
   },
   "require-dev": {
     "squizlabs/php_codesniffer": "3.0.0RC3"
