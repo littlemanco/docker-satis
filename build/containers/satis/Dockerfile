@@ -4,6 +4,6 @@ MAINTAINER Andrew Howden <hello@andrewhowden.com>
 ENV SERVER_NAME="repos.example.com"
 
 ADD "app" "/opt/satis"
-ADD "etc/apache2/sites-enabled" "/etc/apache2/sites-enabled"
+ADD "etc/apache2/sites-enabled/" "/etc/apache2/sites-enabled"
 
 VOLUME "/etc/satis/"
