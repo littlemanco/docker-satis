@@ -40,6 +40,22 @@ $oLogHandler   = new ErrorLogHandler();
 $oLogHandler->setFormatter($oLogFormatter);
 $oLog->pushHandler($oLogHandler);
 
+// Acquire lock
+// Todo: Ensure that if something fails, the lock still gets released or times out. (v3.0)
+$sLockFile = sys_get_temp_dir() . DIRECTORY_SEPARATOR . 'satis.lock';
+touch($sLockFile);
+
+$rLockFile = fopen($sLockFile, 'r+');
+$bLock = flock($rLockFile, LOCK_EX | LOCK_NB);
+if ($bLock === false) {
+    http_response_code(HTTP_STATUS_INTERNAL_SERVER_ERROR);
+    echo "NOT OK";
+    $oLog->addError(sprintf('Unable to acquire lock on file "%s"', $sLockFile));
+    exit();
+} else {
+    $oLog->addDebug(sprintf('Successfully acquired lock on file "%s"', $sLockFile));
+}
+
 $command = sprintf(
     '%s build /etc/satis/satis.json public',
     DIR_BIN . DIRECTORY_SEPARATOR . 'satis'
@@ -59,3 +75,8 @@ switch ($exitCode) {
         $oLog->addInfo(sprintf('Satis rebuild failed. Exit code "%s", output "%s"', $exitCode, implode("\n", $output)));
         break;
 }
+
+// Release the lock
+flock($rLockFile, LOCK_UN);
+fclose($rLockFile);
+unlink($rLockFile);
