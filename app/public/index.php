@@ -10,10 +10,9 @@
 use Monolog\Logger;
 use Monolog\Handler\ErrorLogHandler;
 use \Monolog\Formatter\JsonFormatter;
-use \Monolog\Handler\StreamHandler;
 
 // Todo: Think about making this an application with a routing stack etc. Can then include health checks to ensure
-// all things are inspected (2.1)
+// all things are inspected (v2.1)
 //
 // Health checks would include
 // - Is satis.json there
@@ -29,17 +28,23 @@ const HTTP_STATUS_BAD_REQUEST           = 400;
 const HTTP_STATUS_INTERNAL_SERVER_ERROR = 500;
 
 // Set up logging
-// Todo: One this is an application, move this into a more general bootstrap. (2.0)
+// Todo: One this is an application, move this into a more general bootstrap. (v2.0)
 require_once DIR_APP_ROOT . DIRECTORY_SEPARATOR . 'vendor' . DIRECTORY_SEPARATOR . 'autoload.php';
 
 $oLog          = new Logger('*');
 $oLogFormatter = new JsonFormatter();
 $oLogHandler   = new ErrorLogHandler();
 
+// Todo: Modify this to use the standard log format
+// (v1.1)
 $oLogHandler->setFormatter($oLogFormatter);
 $oLog->pushHandler($oLogHandler);
 
-$command = DIR_BIN . DIRECTORY_SEPARATOR . 'satis';
+$command = sprintf(
+    '%s build',
+    DIR_BIN . DIRECTORY_SEPARATOR . 'satis'
+);
+
 exec($command, $output, $exitCode);
 
 switch ($exitCode) {
@@ -51,6 +56,6 @@ switch ($exitCode) {
     default:
         http_response_code(HTTP_STATUS_INTERNAL_SERVER_ERROR);
         echo "NOT OK";
-        $oLog->addInfo(sprintf('Satis rebuild failed. Exit code "%s", output "%s"', $exitCode, $output));
+        $oLog->addInfo(sprintf('Satis rebuild failed. Exit code "%s", output "%s"', $exitCode, implode("\n", $output)));
         break;
 }
