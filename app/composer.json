@@ -1,0 +1,54 @@
+{
+  "name": "littlemanco/satis",
+  "description": "A build of satis for running in a dockerized environment",
+  "type": "project",
+  "homepage": "https://github.com/littlemanco/docker-satis",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Andrew Howden",
+      "email": "hello@andrewhowden.com",
+      "homepage": "https://www.andrewhowden.com/",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "email": "hello@andrewhowden.com",
+    "issues": "https://github.com/littlemanco/docker-satis/issues",
+    "wiki": "https://github.com/littlemanco/docker-satis/wiki",
+    "source": "https://github.com/littlemanco/docker-satis"
+  },
+  "require": {
+    "composer/satis": "^1.0@alpha"
+  },
+  "require-dev": {
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/composer/satis.git"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "littlemanco\\": "src/"
+    }
+  },
+  "archive": {
+    "exclude": [
+      "test",
+      "hack",
+      "hooks",
+      ".arclint"
+    ]
+  },
+  "config": {
+    "bin-dir": "bin",
+    "store-auths": false,
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "apcu-autoloader": true,
+    "notify-on-install": false
+  },
+  "minimum-stability": "dev"
+}

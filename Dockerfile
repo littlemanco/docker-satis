@@ -3,6 +3,3 @@ MAINTAINER Andrew Howden <hello@andrewhowden.com>
 
 ADD "satis" "/opt/satis"
 ADD "public" "/var/www/html"
-ADD "run.sh" "/usr/local/bin/"
-
-ENTRYPOINT "/usr/local/bin/run.sh"

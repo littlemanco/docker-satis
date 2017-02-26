@@ -13,4 +13,4 @@ const HTTP_OK = 200;
 
 http_response_code(HTTP_OK);
 
-echo "OK"
+echo "OK";

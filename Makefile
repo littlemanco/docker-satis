@@ -23,13 +23,21 @@ PATH_BUILD_CONFIGURATION := $(shell pwd)/build
 TIMESTAMP := $(shell date "+%s")
 
 help: ## Show this menu
-	@echo -e $(ANSI_TITLE)www.andrewhowden.com$(ANSI_OFF)$(ANSI_SUBTITLE)" - Andrew Howden's personal website"$(ANSI_OFF)
+	@echo -e $(ANSI_TITLE)Satis$(ANSI_OFF)$(ANSI_SUBTITLE)" - Run Satis on Docker"$(ANSI_OFF)
 	@echo -e $(ANSI_TITLE)Commands:$(ANSI_OFF)
 	@grep -E '^[a-zA-Z_-%]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "    \033[32m%-30s\033[0m %s\n", $$1, $$2}'
 
-build: ## ${TAG} | Build the container
+clean: ## Delete everything
+	rm -rf app/vendor app/bin
+
+container: ## ${TAG} | Build the container
 	[ ! -z "${TAG}" ] && { echo "You need to supply the 'TAG' variable"; exit; }
 	docker build -t quay.io/littlemanco/satis:${TAG} .
+
+application: ## Build the satis application
+	cd app && composer install \
+	    --ignore-platform-reqs \
+	    --no-dev
 
 push: build ## ${TAG} | Push the container to the registry
 	docker push quay.io/lttlemanco/satis:${TAG}
