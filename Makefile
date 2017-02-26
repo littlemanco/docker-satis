@@ -32,12 +32,12 @@ clean: ## Delete everything
 
 container: ## ${TAG} | Build the container
 	[ ! -z "${TAG}" ] && { echo "You need to supply the 'TAG' variable"; exit; }
-	docker build -t quay.io/littlemanco/satis:${TAG} .
+	docker build -t quay.io/littlemanco/satis:${TAG} -f build/docker/Dockerfile .
 
 application: ## Build the satis application
 	cd app && composer install \
 	    --ignore-platform-reqs \
 	    --no-dev
 
-push: build ## ${TAG} | Push the container to the registry
+push: container ## ${TAG} | Push the container to the registry
 	docker push quay.io/lttlemanco/satis:${TAG}
