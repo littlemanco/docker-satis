@@ -20,7 +20,7 @@ use \Monolog\Formatter\JsonFormatter;
 // - Is satis.json populated
 // And other such sanity checking.
 
-const DIR_APP_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..';
+const DIR_APP_ROOT = __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..';
 const DIR_BIN      = DIR_APP_ROOT . DIRECTORY_SEPARATOR . 'bin';
 
 const HTTP_STATUS_OK                    = 200;
