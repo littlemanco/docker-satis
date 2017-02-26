@@ -22,3 +22,8 @@ Todo: Think of this
 ### Using a private key
 
 Todo: Think of this
+
+### First Boot
+
+Todo: At the moment, no satis packages will be built when the application is first provisioned. Ths is unacceptable -
+some form of first run should complete for the service to be marked as "healthy".
