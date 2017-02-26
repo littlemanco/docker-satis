@@ -29,11 +29,11 @@ exec($command, $output, $returnVar);
 
 switch ($returnVar) {
     case 0:
-        http_send_status(HTTP_STATUS_OK);
+        http_response_code(HTTP_STATUS_OK);
         echo "OK";
         break;
     default:
-        http_send_status(HTTP_STATUS_INTERNAL_SERVER_ERROR);
+        http_response_code(HTTP_STATUS_INTERNAL_SERVER_ERROR);
         echo "NOT OK";
         break;
 }
