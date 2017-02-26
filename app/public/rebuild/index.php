@@ -79,4 +79,4 @@ switch ($exitCode) {
 // Release the lock
 flock($rLockFile, LOCK_UN);
 fclose($rLockFile);
-unlink($rLockFile);
+unlink($sLockFile);
